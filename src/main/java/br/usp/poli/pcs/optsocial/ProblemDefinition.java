@@ -1,7 +1,6 @@
 package br.usp.poli.pcs.optsocial;
 
 import java.util.Arrays;
-import java.util.List;
 import org.uma.jmetal.problem.ConstrainedProblem;
 import org.uma.jmetal.problem.impl.AbstractDoubleProblem;
 import org.uma.jmetal.solution.DoubleSolution;
@@ -17,12 +16,8 @@ public class ProblemDefinition extends AbstractDoubleProblem implements Constrai
     public OverallConstraintViolation<DoubleSolution> overallConstraintViolationDegree;
     public NumberOfViolatedConstraints<DoubleSolution> numberOfViolatedConstraints;
 
-    // defining the lower and upper limits
-    public static final Double[] LOWERLIMIT = {6.40, 0.69, 3.91};
-    public static final Double[] UPPERLIMIT = {7.09, 2.89, 4.61};
-
     /*Problem constants, change them to create a new problem instance*/
- /*You can move some contants to decision variables*/
+    /*You can move some contants to decision variables*/
     protected final double Cw_h;
     protected final double Cw_l;
     protected final double Ck_h;
@@ -37,20 +32,6 @@ public class ProblemDefinition extends AbstractDoubleProblem implements Constrai
     }
 
     public ProblemDefinition(double Cw_h, double Cw_l, double Ck_h, double Ck_l, double ts, int m, double Cd_s, double Cd_p) {
-        setNumberOfVariables(7);
-        setNumberOfObjectives(3);
-        setName("ProblemDefinition");
-        setNumberOfConstraints(2);
-
-        List<Double> lowerLimit = Arrays.asList(LOWERLIMIT);
-        List<Double> upperLimit = Arrays.asList(UPPERLIMIT);
-
-        setLowerLimit(lowerLimit);
-        setUpperLimit(upperLimit);
-
-        overallConstraintViolationDegree = new OverallConstraintViolation<DoubleSolution>();
-        numberOfViolatedConstraints = new NumberOfViolatedConstraints<DoubleSolution>();
-
         this.Ck_h = Ck_h;
         this.Ck_l = Ck_l;
         this.Cw_h = Cw_h;
@@ -59,6 +40,20 @@ public class ProblemDefinition extends AbstractDoubleProblem implements Constrai
         this.m = m;
         this.Cd_s = Cd_s;
         this.Cd_p = Cd_p;
+        setNumberOfVariables(7);
+        setNumberOfObjectives(3);
+        setName("ProblemDefinition");
+        setNumberOfConstraints(2);
+
+        // defining the lower and upper limits for each decision variable
+        Double[] LOWERLIMIT = {1.0, 1.0, 0.01, 0.1, 0.01, 1.0, 1.0};
+        Double[] UPPERLIMIT = {((double)m), ((double)m), 0.5, 5.0, 0.6, 1000.0, 1000.0};
+        
+        setLowerLimit(Arrays.asList(LOWERLIMIT));
+        setUpperLimit(Arrays.asList(UPPERLIMIT));
+
+        overallConstraintViolationDegree = new OverallConstraintViolation<DoubleSolution>();
+        numberOfViolatedConstraints = new NumberOfViolatedConstraints<DoubleSolution>();
     }
 
     @Override
