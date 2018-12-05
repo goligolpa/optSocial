@@ -65,8 +65,8 @@ public class ProblemDefinition extends AbstractDoubleProblem implements Constrai
         /*Decision variables existing in the solution*/
         int ns = (int) Math.round(x[0]);//number of solo riders
         int np = (int) Math.round(x[1]);//number of pool riders
-        double lambda_h = x[2];//Arrival rate of passengers   !where to use it
-        double lambda_l = x[3];//Arrival rate of passengers   !where to use it
+        double lambda_h = x[2];//Arrival rate of passengers   !where to use it ***** This is used in the "pass and R formula"*****
+        double lambda_l = x[3];//Arrival rate of passengers   !where to use it ***** This is used in the "pass and R formula"*****
         double theta = x[4]; //Probability of successful matching of pooling requests
         double v_h = x[5];
         double v_l = x[6];
@@ -78,10 +78,10 @@ public class ProblemDefinition extends AbstractDoubleProblem implements Constrai
         double EC_hs = Cw_h * tp + theta * Ck_h;
         double EC_ls = Cw_l * tp + theta * Ck_l;
 
-        double WTP_hp = v_h - EC_hp; //!where to use it
+        double WTP_hp = v_h - EC_hp; //!where to use it ****** This is only used for those defined constraints 
         double WTP_lp = v_l - EC_lp;
-        double WTP_hs = v_h - EC_hs; //!where to use it
-        double WTP_ls = v_l - EC_ls; //!where to use it
+        double WTP_hs = v_h - EC_hs; //!where to use it ****** This is only used for those defined constraints 
+        double WTP_ls = v_l - EC_ls; //!where to use it ****** This is only used for those defined constraints 
 
         double p_s = WTP_lp + EC_hp - EC_hs;
         double p_p = WTP_lp;
